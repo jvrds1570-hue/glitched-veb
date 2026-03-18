@@ -4,28 +4,30 @@ let angle = 0;
 
 
 function preload() {
-  font = loadFont("nimbusmono-bold.otf");}
+  font = loadFont("nimbusmono-bold.otf");
+}
 
 function setup() {
-  createCanvas(720, 400, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   
   noCursor();
 
   textFont(font);
   textSize(20);
   textWrap(CHAR);
-  frameRate(9)
+  frameRate(9);
   
   capture = createCapture(VIDEO);
-  capture.size(360, 200);
+  capture.size(width/2, height/2);
   capture.hide();
   
-  img = createGraphics(360, 200);
+  img = createGraphics(width/2, height/2);
 }
 
 function draw() {
  
   background(0);
+  orbitControl();
   
   angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);
   
@@ -45,28 +47,24 @@ function draw() {
   }
   
   noStroke();
-  plane(360, 200);
+  plane(width/2, height/2);
 
   pop();
   
   {
 push();
-
 translate(0, 0, -200 + angle * 100);
-
 noStroke();
-fill(255);
+    fill(255);
 
-let noiseScale = 0.02;
-let t = frameCount * 0.05;
+for (let i = 0; i < 80; i++) {
 
+  let x = map(noise(i, frameCount * 0.02), 0, 1, -width, width);
+  let y = map(noise(i + 1000, frameCount * 0.02), 0, 1, -height, height);
+  let w = map(noise(i + 2000), 0, 1, 10, 200);
+  let h = map(noise(i + 3000), 0, 1, 1, 5);
 
-for (let i = 0; i < 70; i++) {
-  let y = random(-height*1.5, height*1.5);
-  let h = random(1, 5);
-  let x = random(-width*1.5, width*1.5);
-
-  rect(x, y, x, h);
+  rect(x, y, w, h);
 }
 pop();
   }
@@ -74,15 +72,57 @@ pop();
   fill(0);
   translate(0, 0, -300 + angle * 20);
   text('let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);', -720, -290, width*2, height*2);
+  fill(80);
+  translate(150, -50, -800 + angle * 100);
+  rotateY(angle/10);
+  text('let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);', -360, -500, width, height*3);
+  
+  fill(30);
+  translate(-750, 50, -1000 + angle * 120);
+  rotateY(-angle/25);
+  text('let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);img.image(capture, 0, 0)img.filter(THRESHOLD);push();rotateY(angle);if (cos(angle) < 0) {texture(img);filter(INVERT);img.filter(INVERT);} else {texture(img);}noStroke();plane(360, 200);pop();}function mousePressed() {if (isLooping()) {noLoop();} else {loop();}}let capture;let img;let angle = 0;let font1;let font2;function preload() {font = loadFont("nimbusmono-bold.otf");}function setup() {createCanvas(720, 400, WEBGL);textFont(font);textSize(12);frameRate(12)capture = createCapture(VIDEO);capture.size(360, 200);capture.hide();img = createGraphics(360, 200);}function draw() {background(0);angle = lerp(angle, map(mouseX, 0, width, -PI, PI), 0.1);', -860, 100, width*5, height);
+  push();
+
+rotateY(angle);
+
+
+if (cos(angle) < 1 && frameCount % 20 < 10) {
+
+  push();
+  
+  for (let i = 0; i < 20; i++) {
+
+  let x = map(noise(i, frameCount * 0.02), 0, 1, -width/2, width/2);
+  let y = map(noise(i + 1000, frameCount * 0.02), 0, 1, -height/2, height/2);
+
+  let size = random(10, 200);
+    push();{
+
+  translate(
+    random(-width, width),
+    random(-height, height),
+    random(-100, 400)
+  );
+
+ 
+
+  fill(random(255));
+  noStroke();
+  triangle(
+    x, y,
+    x + size, y,
+    x + size/2, y - size
+  );
+}
+  pop();
+  }
+  pop();
+
 }
 
-function mousePressed() {
-  
-  if (isLooping()) {
-    noLoop();
-  } else {
-    loop();
-  }
-  
+pop();
+
 }
+
+
  
